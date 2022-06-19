@@ -1,0 +1,93 @@
+public void append(char ch){
+        char[] c = new char[16];
+        if(head == null || tail == null){ // если первое добавление элемента
+            c[0] = ch;
+            StringItem newItem = new StringItem(c, (byte) 1,null);
+            head = newItem;
+            tail = newItem;
+
+        } else if(tail.size < 16){  // если в последнем StringItem было место
+            for (int i = 0; i < 16; i++){
+                if (tail.symbols[i] == 0) {
+                    tail.symbols[i] = ch;
+                    tail.size ++;
+                    break;       // выход из цикла после добавления элемента с увеличением размера на 1
+                }
+            }
+        } else{ // если в последнем StringItem не было места
+            c[0] = ch;
+            StringItem newItem = new StringItem(c, (byte) 1,null);
+            // Привязываем новый узел к концу
+            tail.next = newItem; // Переназначиваем next последнего узла на новый узел
+            tail = newItem; // tail становиться newItem
+        }
+    }
+ stroca.setCharAt(16,'А');
+ListString stroca11 = new ListString("Шаломе");
+        stroca.append(stroca11);
+        stroca.length();
+
+
+if (h.size + h.next.size <= 16){   // объединение массивов в один если есть место в первом
+                join(h,h.next);
+                if(h.next == null){
+                    break;
+                }
+            }
+
+
+
+
+
+
+ public char charAt(int index) { //возвращает символ из строки по конкретному index
+        StringItem h = head;
+        char ch;
+        int Sizeall = 0;
+        while (Sizeall < index - 16) {   //Поиск необходимого блока StringItem
+            Sizeall += h.size;
+            h = h.next;
+        }
+        ch = h.symbols[index - Sizeall]; // нахождение необходимого символа в блоке
+        return ch;
+    }
+
+    public void setCharAt(int index, char ch) { //заменяет символ в позиции index на ch
+        StringItem h = head;
+        int Sizeall = 0;
+        while (Sizeall <= index - 16) {   //Поиск необходимого блока StringItem
+            Sizeall += h.size;
+            h = h.next;
+        }
+        h.symbols[index - Sizeall] = ch; // замена найденной позиции по индексу на исходный символ
+    }
+
+    public void searh(){ //метод поиска позиции объединять значения в класс и возвращать его
+
+    }
+
+    /*if(16 - p.place < size){
+                    copyarray(p.block.symbols,newsym,p.place,0,16 - p.place);
+                    copyarray(p.block.next.symbols,newsym,0,16 - p.place,size - 16 + p.place);
+                }
+                else{
+                    copyarray(p.block.symbols,newsym,p.place,0,size);
+                }*/
+
+
+ if(start.block == null) start.block = head;
+             else start.block = start.block.next;
+             StringItem newstring = new StringItem(new char [16], (byte) 0, start.block.next); //блок для остатка разделенной строки
+             start.block.next = startblock;                                           // связываем блок с позицией индекс с данным блоком
+             lastblock.next = newstring;                                          // конец данного блока привязываем к блоку с ост строки
+             copyarray(start.block.symbols,newstring.symbols,16-start.place,0, 16-start.place);
+             newstring.size = (byte) (16-start.place);
+             copyarray(startblock.symbols,start.block.symbols, 0, start.block.size,16-start.block.size);
+             if(startblock.size < 16-start.block.size){
+                 start.block.size += startblock.size;
+                 startblock.size = 0;
+             }
+             else{
+                 startblock.size = (byte) (16-start.block.size);
+                 start.block.size = 16;
+             }
